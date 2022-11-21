@@ -1,1 +1,5 @@
-# react-js-by-thapa-technical
+# ReactJS
+
+###
+### to create react app
+### create-react-app <app-name>

@@ -17,7 +17,7 @@ Create-react-app <app-name>
 
 #### Run react app
 ```
-Npm start
+npm start
 ```
 
 #### Installing bootstrap

@@ -1,14 +1,16 @@
 import React from 'react'
+import Footer from './Footer'
+import NavBar from './NavBar'
 
 const Base = ({title="Welcome to our website",children}) => {
   return (
-    <div className='container-fluid'>
-        <h1>This is header</h1>
+    <div className='container-fluid p-0 m-0'>
+        <NavBar/>
 
         {/* calling dynamic children */}
         {children}
 
-        <h1>This is footer</h1>
+        <Footer/>
     </div>
   )
 }

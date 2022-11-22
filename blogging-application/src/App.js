@@ -5,21 +5,23 @@ import About from './Pages/About'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
+import Contact from './Pages/Contact'
 
  
 
 const App = () => {
   return (
-    <div> 
+     
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/signup" element={<Signup/>}/>
               <Route path="/about" element={<About/>}/>
+              <Route path="/contact" element={<Contact/>}/>
           </Routes>
       </BrowserRouter>
-    </div>
+    
   )
 }
 

@@ -1,18 +1,9 @@
 # ReactJS
 
-How to make components
-Calling one component from another component
-Passing some value to another component (Props)
-Styling the react element
-Using reactstrap 
-States
-React tostify
-axios (to call server)
-
-Install react app globally
+#### Install react app globally
 npm install -g create-react-app
 
-Checking version
+#### Checking version
 create-react-app -version
 
 Create react app

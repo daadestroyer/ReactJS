@@ -28,7 +28,7 @@ const Login = () => {
                     </Container>
                   </Form>
                 </CardBody>
-                <CardFooter className='bg-dark text-danger'>Here login error will come</CardFooter>
+                <CardFooter className='bg-dark text-danger'>Here signip error will come</CardFooter>
               </Card>
             </Col>
             

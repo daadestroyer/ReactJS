@@ -39,15 +39,23 @@ const Signup = () => {
 
   // calling setSignupData for reseting form data 
   const resetData = () => {
+    if (signUpData.userName == '' && signUpData.password == '' && signUpData.password == '' && signUpData.about == '') {
+      toast.info("fields are already reset!");
+    }
     setSignupData({
       userName: '',
       userEmail: '',
       password: '',
       about: ''
     })
+
+    setError({
+      errors: {},
+      isError: false
+    })
   }
   // submitting form data
-  const submitForm =  (event) => {
+  const submitForm = (event) => {
     // stopping default behavior of submit
     event.preventDefault()
 

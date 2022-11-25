@@ -26,9 +26,16 @@ const Login = () => {
 
   // calling setSignupData for reseting form data 
   const resetData = () => {
+    if (loginData.username == '' && loginData.password == '') {
+      toast.info("fields are already reset!");
+    }
     setLoginData({
       username: '',
       password: ''
+    })
+    setError({
+      errors: {},
+      isError: false
     })
   }
 

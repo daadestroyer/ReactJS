@@ -29,6 +29,7 @@ const Signup = () => {
     isError: false
   })
 
+  // to see the changes of onChange function immediatly
   // useEffect(() => {
   //   console.log(signUpData)
   // }, [signUpData])
@@ -46,7 +47,7 @@ const Signup = () => {
     })
   }
   // submitting form data
-  const submitForm = async (event) => {
+  const submitForm =  (event) => {
     // stopping default behavior of submit
     event.preventDefault()
 
@@ -55,16 +56,7 @@ const Signup = () => {
       .then((resp) => {
         console.log(resp);
         console.log("success log");
-        toast.success(signUpData.userName + ' registered successfully...', {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success(signUpData.userName + ' registered successfully...');
         setSignupData({
           userName: '',
           userEmail: '',
@@ -73,16 +65,7 @@ const Signup = () => {
         })
       }).catch((error) => {
         console.log(error);
-        toast.error('Invalid/Empty details !', {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error('Invalid/Empty details !');
         // handling error value and showing to user
         setError({
           errors: error,

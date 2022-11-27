@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Row } from 'reactstrap'
+import { setToken } from '../Authentication/Auth'
 import Base from '../Components/Base'
 import { validateUser } from '../Services/UserService'
 
 const Login = () => {
+
+  const navigate = useNavigate();
 
   // to set login data and to get login data
   const [loginData, setLoginData] = useState({
@@ -51,7 +55,17 @@ const Login = () => {
     // call server api to submit form data
     validateUser(loginData).then((response) => {
       console.log(response)
-      toast.success("Login Successful")
+      toast.success("Login Successful");
+
+      navigate("/user/dashboard");
+
+
+      // save the data to local storage
+      setToken(loginData, () => {
+        console.log("login details saved to local storage")
+        // redired to user dashboard page
+      });
+
       setLoginData({
         username: '',
         password: ''
@@ -60,7 +74,7 @@ const Login = () => {
         errors: error,
         isError: true
       })
-
+       
     }).catch(error => {
       console.log(error)
       if (error.response.status == 404) {

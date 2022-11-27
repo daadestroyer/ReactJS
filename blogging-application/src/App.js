@@ -7,6 +7,11 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Contact from './Pages/Contact'
 import { ToastContainer } from 'react-toastify'
+import UserDashboard from './Pages/Private Pages/UserDashboard'
+
+
+import PrivateRoute from './Components/PrivateRoute'
+import UserProfile from './Pages/Private Pages/UserProfile'
 
 
 const App = () => {
@@ -31,6 +36,14 @@ const App = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+
+                <Route path="/user" element={<PrivateRoute />} >
+                    <Route path="dashboard" element={<UserDashboard />} />
+                    <Route path="profile" element={<UserProfile/>} />
+                </Route>
+
+
+
             </Routes>
         </BrowserRouter>
 

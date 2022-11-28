@@ -68,10 +68,10 @@ const Login = () => {
         username: '',
         password: ''
       })
-      setError({
-        errors: error,
-        isError: true
-      })
+      // setError({
+      //   errors: error,
+      //   isError: true
+      // })
        
     }).catch(error => {
       console.log(error)

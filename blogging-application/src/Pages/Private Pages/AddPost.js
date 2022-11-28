@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
-import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Form, FormGroup, Input, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardFooter, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Row } from 'reactstrap'
 import Base from '../../Components/Base'
 import { loadAllCategories } from '../../Services/Category'
 import JoditEditor from 'jodit-react'
@@ -24,7 +24,7 @@ const AddPost = () => {
 
     useEffect(() => {
         setUserData(getCurrentUser())
-       // console.log(getCurrentUser())
+        // console.log(getCurrentUser())
         loadAllCategories()
             .then((resp) => {
                 // console.log(resp)
@@ -34,19 +34,23 @@ const AddPost = () => {
                 console.log("error")
                 toast.error("something went wrong !")
             });
-            //console.log(userData)
-             
-           
-    },[])
+        //console.log(userData)
+
+
+    }, [])
 
     const config = {
         placeholder: "Start Typing...",
         "askBeforePasteHTML": true,
-  "askBeforePasteFromWord": true,
-  "defaultActionOnPaste": "insert_clear_html"
+        "askBeforePasteFromWord": true,
+        "defaultActionOnPaste": "insert_clear_html"
     };
 
-    
+    const [error, setError] = useState({
+        errors: {},
+        isError: false
+
+    })
 
 
 
@@ -65,27 +69,44 @@ const AddPost = () => {
     //     console.log(postData)
     // }, [postData])
 
-    
+
 
     const submitForm = (event) => {
         event.preventDefault();
-       // postData['userId'] = 
-        if (postData.catId == '') {
+        // postData['userId'] = 
+        if(postData.postTitle==''){
+            toast.error('please enter a title')
+            return
+        }
+        else if (postData.catId == '') {
             toast.error("Please select a category")
             return
         }
-         
+        else if(postData.postContent==''){
+            toast.error("Please enter a post content")
+            return
+        }
+
         // submit the form to server
         postData['userId'] = userData.userId;
         console.log(postData)
         createPost(postData)
-        .then((resp)=>{
-            console.log(resp)
-            toast.success("Post created successfully!")
-        }).catch((error)=>{
-            console.log(error)
-            toast.error("Something went wrong!")
-        });
+            .then((resp) => {
+                console.log(resp)
+                toast.success("Post created successfully!")
+                setPostData({
+                    postTitle: '',
+                    postContent: '',
+                })
+            }).catch((error) => {
+                console.log(error)
+                setError({
+                    errors: error,
+                    isError: true
+                })
+
+
+            })
     }
 
     return (
@@ -107,7 +128,11 @@ const AddPost = () => {
                                                 name='postTitle'
                                                 value={postData.postTitle}
                                                 onChange={(e) => handleChange(e, 'postTitle')}
+                                                invalid={error.errors?.response?.data?.postTitle ? true : false}
                                             />
+                                            <FormFeedback>
+                                                {error.errors?.response?.data.postTitle}
+                                            </FormFeedback>
                                         </FormGroup>
                                         <FormGroup>
                                             <label>Post Category</label>
@@ -142,9 +167,12 @@ const AddPost = () => {
                                                 onBlur={contentFieldChange}
                                                 config={config}
                                                 name='postContent'
-
-
+                                                invalid={error.errors?.response?.data?.postContent ? true : false}
                                             />
+                                            <FormFeedback>
+                                                {error.errors?.response?.data.postTitle}
+                                            </FormFeedback>
+
                                         </FormGroup>
 
 

@@ -13,11 +13,8 @@ const Home = () => {
           This is developed by Shubham Nigam for learning purpose, its backend is on springboot and frontend is on
         </p>
         <div class="container">
-          <Button color="primary" tag={ReactLink} to="/login"  outline>Start Using</Button>
+          <Button color="primary" tag={ReactLink} to="/newsfeed" outline>Start Exploring</Button>
         </div>
-
-
-
       </div>
     </Base>
   )

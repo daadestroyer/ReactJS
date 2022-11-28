@@ -14,11 +14,15 @@ import {
     DropdownMenu,
     DropdownItem,
     Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
 } from 'reactstrap';
 import { doLogout, getCurrentUser, isLoggedIn } from '../Authentication/Auth';
 
 const NavBar = () => {
-
+    
     let navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
@@ -27,7 +31,7 @@ const NavBar = () => {
     const [isLogin, setIsLogin] = useState(false)
     const [user, setUser] = useState(undefined)
 
-
+    
 
     // whenever this component load useEffect will call
     useEffect(() => {
@@ -35,11 +39,14 @@ const NavBar = () => {
         // set true/false if user is logged in or not
         setIsLogin(isLoggedIn());
         // if user is logged in user details will be stored otherwise undefined will be returned
-        console.log(getCurrentUser());
+        //console.log(getCurrentUser());
         setUser(getCurrentUser());
 
-        console.log(isLogin);
-        console.log(user);
+        //console.log(isLogin);
+        //console.log(user);
+
+         
+
     }, [isLogin])
 
     const logout = () => {
@@ -49,6 +56,9 @@ const NavBar = () => {
             toast.success("Logged out successfully")
         })
     }
+
+
+
     return (
         <div>
 
@@ -58,14 +68,25 @@ const NavBar = () => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
                         <NavItem>
-                            <NavLink tag={ReactLink} to="/about">About</NavLink>
+                            <NavLink tag={ReactLink} to="/user/about">About</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={ReactLink} to="/contact">
-                                Contact
-                            </NavLink>
+                            <NavLink tag={ReactLink} to="/newsfeed">News Feed</NavLink>
                         </NavItem>
 
+{
+    isLogin && (
+        <>
+        <NavItem>
+                            <NavLink tag={ReactLink} to="/user/addpost" >
+                               Post something ?
+                            </NavLink>
+                        </NavItem>
+        </>
+    )
+}
+                       
+                        
                     </Nav>
 
                     {
@@ -85,7 +106,7 @@ const NavBar = () => {
                                 <>
                                     <NavItem>
                                         <NavLink tag={ReactLink} to="/user/dashboard" >
-                                            <u>{user.username}</u>
+                                            <u>{user.userName}</u>
                                         </NavLink>
                                     </NavItem>
                                     <NavItem>
@@ -106,6 +127,8 @@ const NavBar = () => {
 
                 </Collapse>
             </Navbar>
+
+            
 
         </div>
     )

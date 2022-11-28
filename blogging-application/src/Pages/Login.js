@@ -53,18 +53,16 @@ const Login = () => {
     event.preventDefault()
     console.log(loginData)
     // call server api to submit form data
-    validateUser(loginData).then((response) => {
-      console.log(response)
-      toast.success("Login Successful");
 
-      navigate("/user/dashboard");
-
-
+    validateUser(loginData).then((data) => {
+      console.log(data)
+      
       // save the data to local storage
-      setToken(loginData, () => {
+      setToken(data, () => {
         console.log("login details saved to local storage")
-        // redired to user dashboard page
       });
+      toast.success("Login Successful");
+      navigate("/user/dashboard");
 
       setLoginData({
         username: '',

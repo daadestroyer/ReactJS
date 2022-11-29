@@ -92,11 +92,11 @@ const NewsFeeds = () => {
                                     </Label>
                                     <Input type='select' name='pageSize' onChange={(e) => changePageSize(e, 'pageSize')}>
                                         <option disabled selected>--Choose Page Size--</option>
-                                        <option value='3'>3</option>
-                                        <option value='5'>5</option>
-                                        <option value='10'>10</option>
-                                        <option value='15'>15</option>
-                                        <option value='20'>20</option>
+                                        <option value='3' disabled={postData.totalElements<3}>3</option>
+                                        <option value='5' disabled={postData.totalElements<5}>5</option>
+                                        <option value='10' disabled={postData.totalElements<10}>10</option>
+                                        <option value='15' disabled={postData.totalElements<15}>15</option>
+                                        <option value='20' disabled={postData.totalElements<20}>20</option>
                                     </Input>
                                 </FormGroup>
                       

@@ -22,7 +22,7 @@ import {
 import { doLogout, getCurrentUser, isLoggedIn } from '../Authentication/Auth';
 
 const NavBar = () => {
-    
+
     let navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
@@ -31,7 +31,7 @@ const NavBar = () => {
     const [isLogin, setIsLogin] = useState(false)
     const [user, setUser] = useState(undefined)
 
-    
+
 
     // whenever this component load useEffect will call
     useEffect(() => {
@@ -45,7 +45,7 @@ const NavBar = () => {
         //console.log(isLogin);
         //console.log(user);
 
-         
+
 
     }, [isLogin])
 
@@ -74,19 +74,32 @@ const NavBar = () => {
                             <NavLink tag={ReactLink} to="/newsfeed">News Feed</NavLink>
                         </NavItem>
 
-{
-    isLogin && (
-        <>
-        <NavItem>
-                            <NavLink tag={ReactLink} to="/user/addpost" >
-                               Post something ?
-                            </NavLink>
-                        </NavItem>
-        </>
-    )
-}
-                       
-                        
+                        {
+                            isLogin && (
+                                <>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle nav caret>
+                                            Post
+                                        </DropdownToggle>
+                                        <DropdownMenu right>
+                                            <DropdownItem tag={ReactLink} to="/user/addpost">   Post something ?</DropdownItem>
+                                            <DropdownItem>   Edit Post ?</DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle nav caret>
+                                            Category
+                                        </DropdownToggle>
+                                        <DropdownMenu right>
+                                            <DropdownItem tag={ReactLink} to="/user/addcat">Add Category</DropdownItem>
+                                        </DropdownMenu>
+                                    </UncontrolledDropdown>
+                                </>
+                            )
+                        }
+
+
+
                     </Nav>
 
                     {
@@ -128,7 +141,7 @@ const NavBar = () => {
                 </Collapse>
             </Navbar>
 
-            
+
 
         </div>
     )

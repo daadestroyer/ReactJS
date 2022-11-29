@@ -15,6 +15,7 @@ import UserProfile from './Pages/Private Pages/UserProfile'
 import AddPost from './Pages/Private Pages/AddPost'
 import About from './Pages/Private Pages/About'
 import NewsFeeds from './Pages/NewsFeeds'
+import AddCategory from './Pages/Private Pages/AddCategory'
 
 
 const App = () => {
@@ -45,6 +46,7 @@ const App = () => {
                     <Route path="profile" element={<UserProfile/>} />
                     <Route path="about" element={<About/>} />
                     <Route path="addpost" element={<AddPost/>} />
+                    <Route path="addcat" element={<AddCategory/>} />
                 </Route>
 
 

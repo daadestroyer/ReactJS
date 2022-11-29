@@ -6,9 +6,10 @@ import { loadAllCategories } from '../../Services/Category'
 import JoditEditor from 'jodit-react'
 import { getCurrentUser } from '../../Authentication/Auth'
 import { createPost } from '../../Services/PostService'
+import { useNavigate } from 'react-router-dom'
 
 const AddPost = () => {
-
+    const navigate = useNavigate();
     const editor = useRef(null)
     const [content, setContent] = useState('')
 
@@ -74,7 +75,7 @@ const AddPost = () => {
     const submitForm = (event) => {
         event.preventDefault();
         // postData['userId'] = 
-        if(postData.postTitle==''){
+        if (postData.postTitle == '') {
             toast.error('please enter a title')
             return
         }
@@ -82,7 +83,7 @@ const AddPost = () => {
             toast.error("Please select a category")
             return
         }
-        else if(postData.postContent==''){
+        else if (postData.postContent == '') {
             toast.error("Please enter a post content")
             return
         }
@@ -94,12 +95,15 @@ const AddPost = () => {
             .then((resp) => {
                 console.log(resp)
                 toast.success("Post created successfully!")
+
                 setPostData({
                     postTitle: '',
                     postContent: '',
                 })
+                window.location.reload();
             }).catch((error) => {
                 console.log(error)
+                toast.error('something went wrong')
                 setError({
                     errors: error,
                     isError: true

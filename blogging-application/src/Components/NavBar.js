@@ -23,6 +23,7 @@ import { doLogout, getCurrentUser, isLoggedIn } from '../Authentication/Auth';
 
 const NavBar = () => {
 
+
     let navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
@@ -45,10 +46,16 @@ const NavBar = () => {
         //console.log(isLogin);
         //console.log(user);
 
-
-
     }, [isLogin])
 
+    useEffect(() => {
+        setUser(getCurrentUser());
+
+        //let userrole =  user.roles?.map((role) => role.role) 
+
+
+
+    }, [])
     const logout = () => {
         doLogout(() => {
             setIsLogin(false);
@@ -86,14 +93,29 @@ const NavBar = () => {
                                             <DropdownItem>   Edit Post ?</DropdownItem>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
-                                    <UncontrolledDropdown nav inNavbar>
-                                        <DropdownToggle nav caret>
-                                            Category
-                                        </DropdownToggle>
-                                        <DropdownMenu right>
-                                            <DropdownItem tag={ReactLink} to="/user/addcat">Add Category</DropdownItem>
-                                        </DropdownMenu>
-                                    </UncontrolledDropdown>
+
+                                    {
+                                        user.roles?.map((role) => role.role) == 'ROLE_ADMIN' && (
+                                            <>
+                                                <UncontrolledDropdown nav inNavbar >
+                                                    <DropdownToggle nav caret>
+                                                        Category
+                                                    </DropdownToggle>
+                                                    <DropdownMenu right>
+                                                        <DropdownItem tag={ReactLink} to="/user/addcat">Add Category</DropdownItem>
+                                                    </DropdownMenu>
+                                                </UncontrolledDropdown>
+                                            </>
+                                        )
+                                    }
+
+
+
+
+
+
+
+
                                 </>
                             )
                         }

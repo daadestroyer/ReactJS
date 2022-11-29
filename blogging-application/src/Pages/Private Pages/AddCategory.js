@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Button, Form } from 'reactstrap'
 import { Card, CardBody, CardHeader, Col, Container, FormGroup, Input, Row } from 'reactstrap'
+import { getCurrentUser } from '../../Authentication/Auth'
 import Base from '../../Components/Base'
 import { addCategory, loadAllCategories } from '../../Services/Category'
 
@@ -14,6 +15,8 @@ const AddCategory = () => {
         catTitle: '',
         catDesc: ''
     })
+
+    const [userData,setUserData] = useState([])
 
     const [categories, setCategories] = useState([])
 
@@ -30,9 +33,14 @@ const AddCategory = () => {
                 toast.error("something went wrong !")
             });
         //console.log(userData)
-
-
     }, [])
+
+    useEffect(()=>{
+        setUserData(getCurrentUser())
+
+        console.log(userData)
+       
+    },[userData])
 
 
 
@@ -64,6 +72,7 @@ const AddCategory = () => {
         <div>
             <Base>
                 <Container className='mt-4'>
+                    
                     <Row>
                         <Col md={{ size: 3 }} >
                             <Card className='p-3'>

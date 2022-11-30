@@ -83,7 +83,7 @@ const AddCategory = () => {
                                     name='catId'
 
                                 >
-                                    <option disabled selected>--Select Post Category--</option>
+                                    <option disabled selected>--Existing Category--</option>
                                     {
 
                                         categories.map((category) => (

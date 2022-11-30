@@ -40,11 +40,11 @@ const App = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/newsfeed" element={<NewsFeeds/>} />
+                <Route path="about" element={<About/>} />
                 
                 <Route path="/user" element={<PrivateRoute />} >
                     <Route path="dashboard" element={<UserDashboard />} />
                     <Route path="profile" element={<UserProfile/>} />
-                    <Route path="about" element={<About/>} />
                     <Route path="addpost" element={<AddPost/>} />
                     <Route path="addcat" element={<AddCategory/>} />
                 </Route>

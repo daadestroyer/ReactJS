@@ -9,7 +9,7 @@ const Post = ({ post = { title: "this is default post title", content: "this is 
                     Post Id : {post.postId}{" "}
                 </Badge>{" "}
                 <Badge color="success" pill>
-                Post Category : {post.category.catTitle}
+                    Post Category : {post.category.catTitle}
                 </Badge>{" "}
 
 
@@ -19,10 +19,13 @@ const Post = ({ post = { title: "this is default post title", content: "this is 
             <CardBody>
                 <CardTitle> <b>{post.postTitle} ?</b> </CardTitle>
             </CardBody>
-            <CardText>
-                <p>{post.postContent}</p>
-                <Button>Read More</Button>
+            <CardText dangerouslySetInnerHTML={{ __html:post.postContent.substring(0, 60)}}>
+
             </CardText>
+
+            <div>
+                <Button>Read More</Button>
+            </div>
 
         </Card>
     )

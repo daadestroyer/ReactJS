@@ -31,7 +31,7 @@ const NewsFeeds = () => {
     }
     const changePageSize = (event) => {
         setPageSize({
-           pageSize: event.target.value
+            pageSize: event.target.value
         })
     }
 
@@ -46,16 +46,22 @@ const NewsFeeds = () => {
                 // toast.error('something went wrong')
             });
 
-    }, [sorting,page])
+    }, [sorting, page])
 
     const changePage = (pageNumber = 0) => {
-        getAllPosts(pageNumber,page.pageSize)
+        if (pageNumber > postData.pageNumber && postData.lastPage) {
+            return
+        }
+        if (pageNumber < postData.pageNumber && postData.pageNumber==0) {
+            return
+        }
+        getAllPosts(pageNumber, page.pageSize)
             .then((data) => {
                 setPostData(data)
                 window.scroll(0, 0)
             }).catch((error) => {
                 console.log(error)
-                toast.error('something went wrong')
+               
             })
     }
 
@@ -92,16 +98,16 @@ const NewsFeeds = () => {
                                     </Label>
                                     <Input type='select' name='pageSize' onChange={(e) => changePageSize(e, 'pageSize')}>
                                         <option disabled selected>--Choose Page Size--</option>
-                                        <option value='3' disabled={postData.totalElements<3}>3</option>
-                                        <option value='5' disabled={postData.totalElements<5}>5</option>
-                                        <option value='10' disabled={postData.totalElements<10}>10</option>
-                                        <option value='15' disabled={postData.totalElements<15}>15</option>
-                                        <option value='20' disabled={postData.totalElements<20}>20</option>
+                                        <option value='3' disabled={postData.totalElements < 3}>3</option>
+                                        <option value='5' disabled={postData.totalElements < 5}>5</option>
+                                        <option value='10' disabled={postData.totalElements < 10}>10</option>
+                                        <option value='15' disabled={postData.totalElements < 15}>15</option>
+                                        <option value='20' disabled={postData.totalElements < 20}>20</option>
                                     </Input>
                                 </FormGroup>
-                      
+
                             </CardBody>
-                            
+
                         </Card>
                     </Col>
                     <Col md={{ size: 9 }}>
@@ -133,7 +139,7 @@ const NewsFeeds = () => {
                         <Container className='text-center mt-3'>
                             <Pagination>
 
-                                <PaginationItem onClick={()=>changePage(--postData.pageNumber)} disabled={postData.pageNumber == 0}>
+                                <PaginationItem onClick={() => changePage(postData.pageNumber-1)} disabled={postData.pageNumber == 0}>
                                     <PaginationLink
                                         href="#"
                                         previous
@@ -151,7 +157,7 @@ const NewsFeeds = () => {
                                     ))
                                 }
 
-                                <PaginationItem onClick={()=>changePage(++postData.pageNumber)} disabled={postData.lastPage}>
+                                <PaginationItem onClick={() => changePage(postData.pageNumber+1)} disabled={postData.lastPage}>
                                     <PaginationLink
                                         href="#"
                                         next
@@ -161,18 +167,8 @@ const NewsFeeds = () => {
                             </Pagination>
                         </Container>
                     </Col>
-
                 </Row>
-
-
-
             </Container>
-
-
-
-
-
-
         </Base>
     )
 }

@@ -75,7 +75,7 @@ const NavBar = () => {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
                         <NavItem>
-                            <NavLink tag={ReactLink} to="/user/about">About</NavLink>
+                            <NavLink tag={ReactLink} to="/about">About</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={ReactLink} to="/newsfeed">News Feed</NavLink>

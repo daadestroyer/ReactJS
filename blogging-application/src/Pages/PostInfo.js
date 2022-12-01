@@ -46,11 +46,11 @@ const PostInfo = () => {
                 <Container className='mt-4'>
                     <ListGroup>
                         <ListGroupItem className='bg-light p-1'>
-                        <Link to="/">Home</Link> / {
-                            (postData) && (
-                                <Link>{postData.postTitle}</Link>
-                            )
-                        }
+                            <Link to="/">Home</Link> / {
+                                (postData) && (
+                                    <Link to="">{postData.postTitle}</Link>
+                                )
+                            }
                         </ListGroupItem>
                     </ListGroup>
                     <Row>
@@ -94,6 +94,27 @@ const PostInfo = () => {
 
                             </Card>
                         </Col>
+                    </Row>
+                    <Row className='mt-4'>
+                        <Card >
+                            <Col className='mt-2 mb-2' md={{ size: 10, offset: 2 }}>
+                                <h6>Comments({postData ? postData.comments.length : 0}) of <i style={{ color: 'blue' }}>"  {
+                                    (postData) && (
+                                        <Link to="">{postData.postTitle}</Link>
+                                    )
+                                } </i></h6>
+
+                               <ListGroup>
+                                <ListGroupItem>
+                                {
+                                    (postData) && postData.comments.map(c => (
+                                        <h6 style={{ fontSize: '12px' }}>{c.content}</h6>
+                                    ))
+                                }
+                                </ListGroupItem>
+                               </ListGroup>
+                            </Col>
+                        </Card>
                     </Row>
                 </Container>
             </div>

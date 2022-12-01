@@ -8,7 +8,7 @@ export const createPost = (postData)=>{
 
 // get all post
 export const getAllPosts = (pageNumber,pageSize,sortDir)=>{
-    return myAxios.get(`/post/get-all-post?pageNumber=${pageNumber}&pageSize=${pageSize}&sortDir=${sortDir}`).then((response)=>response.data)
+    return myAxios.get(`/post/get-all-post?pageNumber=${pageNumber}&pageSize=${pageSize}&sortDir=${sortDir}&sortBy=addedDate`).then((response)=>response.data)
 }
 
 

@@ -55,7 +55,7 @@ const NewsFeeds = () => {
         if (pageNumber < postData.pageNumber && postData.pageNumber == 0) {
             return
         }
-        getAllPosts(pageNumber, page.pageSize)
+        getAllPosts(pageNumber, page.pageSize,sorting.sortDir)
             .then((data) => {
                 setPostData(data)
                 window.scroll(0, 0)

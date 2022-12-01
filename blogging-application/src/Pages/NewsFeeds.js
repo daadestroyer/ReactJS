@@ -52,7 +52,7 @@ const NewsFeeds = () => {
         if (pageNumber > postData.pageNumber && postData.lastPage) {
             return
         }
-        if (pageNumber < postData.pageNumber && postData.pageNumber==0) {
+        if (pageNumber < postData.pageNumber && postData.pageNumber == 0) {
             return
         }
         getAllPosts(pageNumber, page.pageSize)
@@ -61,7 +61,7 @@ const NewsFeeds = () => {
                 window.scroll(0, 0)
             }).catch((error) => {
                 console.log(error)
-               
+
             })
     }
 
@@ -139,7 +139,7 @@ const NewsFeeds = () => {
                         <Container className='text-center mt-3'>
                             <Pagination>
 
-                                <PaginationItem onClick={() => changePage(postData.pageNumber-1)} disabled={postData.pageNumber == 0}>
+                                <PaginationItem onClick={() => changePage(postData.pageNumber - 1)} disabled={postData.pageNumber == 0}>
                                     <PaginationLink
                                         href="#"
                                         previous
@@ -157,7 +157,7 @@ const NewsFeeds = () => {
                                     ))
                                 }
 
-                                <PaginationItem onClick={() => changePage(postData.pageNumber+1)} disabled={postData.lastPage}>
+                                <PaginationItem onClick={() => changePage(postData.pageNumber + 1)} disabled={postData.lastPage}>
                                     <PaginationLink
                                         href="#"
                                         next

@@ -10,3 +10,9 @@ export const createPost = (postData)=>{
 export const getAllPosts = (pageNumber,pageSize,sortDir)=>{
     return myAxios.get(`/post/get-all-post?pageNumber=${pageNumber}&pageSize=${pageSize}&sortDir=${sortDir}`).then((response)=>response.data)
 }
+
+
+// get post by id
+export const getPostById = (postId)=>{
+    return myAxios.get(`/post/get-post/${postId}`).then((response)=>response.data)
+}

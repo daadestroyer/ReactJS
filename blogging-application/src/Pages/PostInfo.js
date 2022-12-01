@@ -44,7 +44,15 @@ const PostInfo = () => {
 
                 {/* <h4>About post</h4> */}
                 <Container className='mt-4'>
-                    {/* <Link to="/">Home</Link> */}
+                    <ListGroup>
+                        <ListGroupItem className='bg-light p-1'>
+                        <Link to="/">Home</Link> / {
+                            (postData) && (
+                                <Link>{postData.postTitle}</Link>
+                            )
+                        }
+                        </ListGroupItem>
+                    </ListGroup>
                     <Row>
                         <Col md={{ size: 12 }}>
 

@@ -101,7 +101,7 @@ const PostInfo = () => {
                                         <CardBody>
                                             <Accordion open={open} toggle={toggle}>
                                                 <AccordionItem>
-                                                    <AccordionHeader targetId="0"><b>Posted By  :</b> &nbsp;  <span style={{ color: 'red' }}><b>{postData.user.userName}</b></span> <span>&nbsp; on {postData.addedDate[2]}/{postData.addedDate[1]}/{postData.addedDate[0]} </span></AccordionHeader>
+                                                    <AccordionHeader targetId="0"><b>Posted By  :</b> &nbsp;  <span style={{ color: 'red' }}><b>{postData.user.user_name}</b></span> <span>&nbsp; on {postData.addedDate[2]}/{postData.addedDate[1]}/{postData.addedDate[0]} </span></AccordionHeader>
                                                     <AccordionBody accordionId="0">
 
                                                         <pre>{postData.user.about} <br />

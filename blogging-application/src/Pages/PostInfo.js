@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Card, CardBody, CardText, Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap'
+import { Accordion, AccordionBody, AccordionHeader, AccordionItem, Button, Card, CardBody, CardText, Col, Container, Input, ListGroup, ListGroupItem, Row } from 'reactstrap'
+import { getCurrentUser, isLoggedIn } from '../Authentication/Auth'
 import Base from '../Components/Base'
+import { createComment } from '../Services/CommentService'
 import { BASE_URL } from '../Services/Constant'
 import { getPostById } from '../Services/PostService'
+import { BsFillTrashFill } from 'react-icons/bs';
 
 const PostInfo = () => {
 
+    const navigate = useNavigate();
     const { postId } = useParams()
     const [postData, setPostData] = useState(null)
 
@@ -36,6 +40,40 @@ const PostInfo = () => {
             setOpen();
         }
     };
+
+    const [commentData, setCommentData] = useState({
+        content: ''
+    })
+
+    const postComment = () => {
+
+        if (!isLoggedIn()) {
+            toast.error('You must be logged in')
+            return
+        }
+        if (commentData.content.trim() === '') {
+            toast.error('Comment cannot be blank')
+            return
+        }
+        createComment(commentData, postData.postId)
+            .then((data) => {
+                console.log(data)
+                toast.success('Comment created successfully')
+                setPostData({
+                    ...postData, comments: [...postData.comments,data]
+                })
+                setCommentData({
+                    content: ''
+                })
+                navigate(`/postinfo/${postData.postId}`)
+                
+            }).catch((error) => {
+                console.log(error)
+                toast.error('something went wrong')
+            })
+
+
+    }
 
     return (
         <Base>
@@ -104,15 +142,25 @@ const PostInfo = () => {
                                     )
                                 } </i></h6>
 
-                               <ListGroup>
-                                <ListGroupItem>
-                                {
-                                    (postData) && postData.comments.map(c => (
-                                        <h6 style={{ fontSize: '12px' }}>{c.content}</h6>
-                                    ))
-                                }
-                                </ListGroupItem>
-                               </ListGroup>
+                                <ListGroup>
+                                    <ListGroupItem>
+                                        {
+                                            (postData) && postData.comments.map(c => (
+                                                <>
+                                                <h6 style={{ fontSize: '12px' }}> {c.content} <Link className='p-1' style={{color:'red'}} color='danger'><BsFillTrashFill /></Link></h6>
+                                                
+                                                </>
+                                               
+                                               
+                                            ))
+                                        }
+                                    </ListGroupItem>
+                                </ListGroup>
+
+                                <CardBody>
+                                    <Input onChange={(e) => setCommentData({ content: e.target.value })} value={commentData.content} type='textarea' placeholder='Enter comment here...' />
+                                    <Button color='primary' onClick={postComment} className='mt-2'  > Post Comment</Button>
+                                </CardBody>
                             </Col>
                         </Card>
                     </Row>

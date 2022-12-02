@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardBody, Col, Container, Row, Table } from 'reactstrap'
+import { Button, Card, CardBody, CardFooter, Col, Container, Row, Table } from 'reactstrap'
 import { getCurrentUser } from '../../Authentication/Auth'
 import Base from '../../Components/Base'
 
 const UserProfile = () => {
 
+  const [currentUser,setCurrentUser] = useState(null)
+
   const [userData, setUserData] = useState([])
 
   useEffect(() => {
+    setCurrentUser(getCurrentUser())
     setUserData(getCurrentUser())
     console.log(userData)
 
@@ -24,36 +27,42 @@ const UserProfile = () => {
               <CardBody>
                 <h4 className='text-uppercase'>User Information</h4>
                 <Container className='text-center'>
-                  <img style={{ maxWidth: '250px', maxHeight: '300px' }} className='img-fluid rounded-circle' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Y2LJnaCmGkiNXrQ9BDNoWPljvdLT1308iw&usqp=CAU" alt={userData.user_name} />
+                  <img style={{ maxWidth: '250px', maxHeight: '300px' }} className='img-fluid rounded-circle' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Y2LJnaCmGkiNXrQ9BDNoWPljvdLT1308iw&usqp=CAU" alt={userData?.user_name} />
                 </Container>
                 <Table responsive striped hover bordered={true} className='mt-5'>
                   <tbody >
                     <tr>
-                      <td>LCWDBlogs User Id</td>
-                      <td>LCWD#{userData.userId}</td>
+                      <td><b>LCWDBlogs User Id</b></td>
+                      <td>LCWD#{userData?.userId}</td>
                     </tr>
                     <tr>
-                      <td>User Name</td>
-                      <td>{userData.user_name}</td>
+                      <td><b>User Name</b></td>
+                      <td>{userData?.user_name}</td>
                     </tr>
                     <tr>
-                      <td>User Email</td>
-                      <td>{userData.userEmail}</td>
+                      <td><b>User Email</b></td>
+                      <td>{userData?.userEmail}</td>
                     </tr>
                     <tr>
-                      <td>User About</td>
-                      <td>{userData.about}</td>
+                      <td><b>User About</b></td>
+                      <td>{userData?.about}</td>
                     </tr>
                     <tr>
-                      <td>User Role</td>
+                      <td><b>User Role</b></td>
                       <td>
                         {
-                          userData.roles?.map((role) => role.role)
+                          userData?.roles?.map((role) => role.role)
                         }
                       </td>
                     </tr>
                   </tbody>
                 </Table>
+                   
+                    <CardFooter className='text-center'>
+                        <Button color='warning'>Update Profile</Button>
+                    </CardFooter>
+                  
+
               </CardBody>
             </Card>
 

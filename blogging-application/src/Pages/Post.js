@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, NavLink as ReactLink, useNavigate } from 'react-router-dom'
+import { Link, Navigate, NavLink as ReactLink, useNavigate } from 'react-router-dom'
 import { Badge, Button, Card, CardBody, CardHeader, CardText, CardTitle } from 'reactstrap'
 
 const Post = ({ post = {title: "this is default post title", content: "this is default post content" } }) => {
@@ -11,6 +11,9 @@ const Post = ({ post = {title: "this is default post title", content: "this is d
                 </Badge>{" "}
                 <Badge color="success" pill>
                     Post Category : {post.category.catTitle}
+                </Badge>{" "}
+                <Badge color="light" pill>
+                    <Link to={'/publicprofile/'+post.user.userId}>Posted By : {post.user.user_name} on {post.addedDate[2]}/{post.addedDate[1]}/{post.addedDate[0]}</Link>
                 </Badge>{" "}
 
 

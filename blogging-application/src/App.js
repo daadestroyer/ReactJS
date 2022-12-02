@@ -17,6 +17,7 @@ import About from './Pages/Private Pages/About'
 import NewsFeeds from './Pages/NewsFeeds'
 import AddCategory from './Pages/Private Pages/AddCategory'
 import PostInfo from './Pages/PostInfo'
+import PublicUserProfile from './Pages/PublicUserProfile'
 
 
 const App = () => {
@@ -42,7 +43,8 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/newsfeed" element={<NewsFeeds/>} />
                 <Route path="/postinfo/:postId" element={<PostInfo/>} />
-                <Route path="about" element={<About/>} />
+                <Route path="/about" element={<About/>} />
+                <Route path="/publicprofile/:userId" element={<PublicUserProfile/>} />
                 
                 <Route path="/user" element={<PrivateRoute />} >
                     <Route path="dashboard" element={<UserDashboard />} />

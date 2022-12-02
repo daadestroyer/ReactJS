@@ -9,5 +9,8 @@ export const validateUser = (user) => {
     return myAxios.post("/token/generate",user).then((response) => response.data);
 }
 
+export const getUserByUserId = (userId) => {
+    return myAxios.get(`/user/get-single-user/${userId}`,userId).then((response) => response.data);
+}
 
  

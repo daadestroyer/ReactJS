@@ -57,6 +57,7 @@ const NewsFeeds = () => {
         }
         getAllPosts(pageNumber, page.pageSize,sorting.sortDir)
             .then((data) => {
+                console.log(data)
                 setPostData(data)
                 window.scroll(0, 0)
             }).catch((error) => {

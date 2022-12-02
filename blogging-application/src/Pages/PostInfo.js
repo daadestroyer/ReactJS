@@ -117,7 +117,7 @@ const PostInfo = () => {
                                                 <img className='img-fluid' src={BASE_URL + '/post/image/' + postData.imageName} alt={postData.imageName} />
                                             </div>
                                             <ListGroup className='mt-4'>
-                                                <ListGroupItem className='bg-dark text-white'>
+                                                <ListGroupItem className='bg-light shadow' >
                                                     <CardText className='p-2' dangerouslySetInnerHTML={{ __html: postData.postContent }}>
 
                                                     </CardText>

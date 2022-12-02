@@ -7,6 +7,7 @@ import JoditEditor from 'jodit-react'
 import { getCurrentUser } from '../../Authentication/Auth'
 import { createPost } from '../../Services/PostService'
 import { useNavigate } from 'react-router-dom'
+import { uploadBannerImage } from '../../Services/ImageService'
 
 const AddPost = () => {
     const navigate = useNavigate();
@@ -42,8 +43,8 @@ const AddPost = () => {
 
     const config = {
         placeholder: "Start Typing...",
-        "askBeforePasteHTML": true,
-        "askBeforePasteFromWord": true,
+        "askBeforePasteHTML": false,
+        "askBeforePasteFromWord": false,
         "defaultActionOnPaste": "insert_clear_html"
     };
 
@@ -66,9 +67,9 @@ const AddPost = () => {
         })
     }
 
-    // useEffect(() => {
-    //     console.log(postData)
-    // }, [postData])
+    useEffect(() => {
+        console.log(postData)
+    }, [postData])
 
 
 
@@ -94,13 +95,21 @@ const AddPost = () => {
         createPost(postData)
             .then((resp) => {
                 console.log(resp)
+                uploadBannerImage(imageData,resp.postId)
+                .then((data)=>{
+                   // toast.success('image uploaded successfully !!')
+                }).catch(error=>{
+                    toast.error('error in uploading image')
+                    console.log(error)
+                })
+
                 toast.success("Post created successfully!")
 
                 setPostData({
                     postTitle: '',
                     postContent: '',
                 })
-                window.location.reload();
+               
             }).catch((error) => {
                 console.log(error)
                 toast.error('something went wrong')
@@ -111,6 +120,14 @@ const AddPost = () => {
 
 
             })
+    }
+
+    const[imageData,setImageData] = useState(null)
+
+    // handleFileChange
+    const handleFileChange = (event)=>{
+        console.log(event.target.files)
+        setImageData(event.target.files[0])
     }
 
     return (
@@ -162,6 +179,12 @@ const AddPost = () => {
                                                 }
 
                                             </Input>
+                                        </FormGroup>
+                                        <FormGroup>
+                                            <div className="mt-3">
+                                            <label>Select post image</label>
+                                                <Input id="image" accept="image/*" type="file" onChange={handleFileChange}/>
+                                            </div>
                                         </FormGroup>
                                         <FormGroup>
                                             <label>Post Content</label>

@@ -111,7 +111,7 @@ const PostInfo = () => {
                                                     </AccordionBody>
                                                 </AccordionItem>
                                             </Accordion>
-                                            <CardText className='ml-5 mt-3'><b>Posted Category :</b> <span>{postData.category.catTitle}</span> </CardText>
+                                            <CardText className='ml-5 mt-3'><b>Post Category :</b> <span>{postData.category.catTitle}</span> </CardText>
                                             <CardText className='mt-3' ><h3>{postData.postTitle}</h3></CardText>
                                             <div className="image-container mt-3 shadow img-rounded" style={{ maxWidth: '20%' }}>
                                                 <img className='img-fluid' src={BASE_URL + '/post/image/' + postData.imageName} alt={postData.imageName} />

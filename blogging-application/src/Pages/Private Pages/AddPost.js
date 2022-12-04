@@ -5,7 +5,7 @@ import Base from '../../Components/Base'
 import { loadAllCategories } from '../../Services/Category'
 import JoditEditor from 'jodit-react'
 import { getCurrentUser } from '../../Authentication/Auth'
-import { createPost } from '../../Services/PostService'
+import { createPost, getAllPostByUserId } from '../../Services/PostService'
 import { useNavigate } from 'react-router-dom'
 import { uploadBannerImage } from '../../Services/ImageService'
 
@@ -15,6 +15,8 @@ const AddPost = () => {
     const [content, setContent] = useState('')
 
     const [categories, setCategories] = useState([])
+
+    // for current login user
     const [userData, setUserData] = useState([]);
 
 
@@ -38,8 +40,19 @@ const AddPost = () => {
             });
         //console.log(userData)
 
+        getAllPostByUserId(userData.userId)
+        .then((data)=>{
+            console.log(data)
+        }).catch(error => {
+            console.log("error")
+        })
+
 
     }, [])
+
+    // useEffect(() => {
+    //     console.log(userData)
+    // }, [userData])
 
     const config = {
         placeholder: "Start Typing...",
@@ -67,9 +80,9 @@ const AddPost = () => {
         })
     }
 
-    useEffect(() => {
-        console.log(postData)
-    }, [postData])
+    // useEffect(() => {
+    //     console.log(postData)
+    // }, [postData])
 
 
 
@@ -95,13 +108,13 @@ const AddPost = () => {
         createPost(postData)
             .then((resp) => {
                 console.log(resp)
-                uploadBannerImage(imageData,resp.postId)
-                .then((data)=>{
-                   // toast.success('image uploaded successfully !!')
-                }).catch(error=>{
-                    toast.error('error in uploading image')
-                    console.log(error)
-                })
+                uploadBannerImage(imageData, resp.postId)
+                    .then((data) => {
+                        // toast.success('image uploaded successfully !!')
+                    }).catch(error => {
+                        toast.error('error in uploading image')
+                        console.log(error)
+                    })
 
                 toast.success("Post created successfully!")
 
@@ -109,7 +122,7 @@ const AddPost = () => {
                     postTitle: '',
                     postContent: '',
                 })
-               
+
             }).catch((error) => {
                 console.log(error)
                 toast.error('something went wrong')
@@ -122,10 +135,10 @@ const AddPost = () => {
             })
     }
 
-    const[imageData,setImageData] = useState(null)
+    const [imageData, setImageData] = useState(null)
 
     // handleFileChange
-    const handleFileChange = (event)=>{
+    const handleFileChange = (event) => {
         console.log(event.target.files)
         setImageData(event.target.files[0])
     }
@@ -159,7 +172,6 @@ const AddPost = () => {
                                             <label>Post Category</label>
                                             <Input
                                                 type='select'
-                                                placeholder='Enter post content'
                                                 name='catId'
                                                 onChange={(e) => handleChange(e, 'catId')}
 
@@ -182,8 +194,8 @@ const AddPost = () => {
                                         </FormGroup>
                                         <FormGroup>
                                             <div className="mt-3">
-                                            <label>Select post image</label>
-                                                <Input id="image" accept="image/*" type="file" onChange={handleFileChange}/>
+                                                <label>Select post image</label>
+                                                <Input id="image" accept="image/*" type="file" onChange={handleFileChange} />
                                             </div>
                                         </FormGroup>
                                         <FormGroup>

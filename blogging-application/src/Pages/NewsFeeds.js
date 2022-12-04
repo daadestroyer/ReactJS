@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Badge, Card, CardBody, CardHeader, CardText, Col, Container, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap'
 import Base from '../Components/Base'
-import { getAllPosts } from '../Services/PostService'
+import { loadAllCategories } from '../Services/Category'
+import { deletePostByPostId, getAllPosts, getPostByCategory } from '../Services/PostService'
 import Post from './Post'
 
 const NewsFeeds = () => {
+
 
 
     const [postData, setPostData] = useState({
@@ -16,6 +18,12 @@ const NewsFeeds = () => {
         pageNumber: ''
     });
 
+    useEffect(() => {
+        console.log(postData)
+    }, [postData])
+
+    // const [filteredPostData,setFilteredPostData] = useState([])
+
     const [sorting, setSorting] = useState({
         sortDir: 'asc'
     }, [])
@@ -23,6 +31,47 @@ const NewsFeeds = () => {
     const [page, setPageSize] = useState({
         pageSize: '3'
     }, [])
+
+    // const [sortByCat, setSortByCat] = useState({
+    //     catId: ''
+    // })
+    const [categories, setCategories] = useState([])
+
+
+
+    useEffect(() => {
+        loadAllCategories()
+            .then((resp) => {
+                // console.log(resp)
+                // setting up the categories
+                setCategories(resp)
+            }).catch(error => {
+                console.log("error")
+                toast.error("something went wrong !")
+            });
+        //console.log(userData)
+    }, [])
+
+    // const handleChange = (event) => {
+    //     setSortByCat({
+    //         ...sortByCat, [event.target.name]: event.target.value
+    //     })
+
+
+    // }
+
+    // useEffect(() => {
+    //     console.log(sortByCat)
+    //      getPostByCategory(sortByCat.catId)
+    //     .then((data)=>{
+    //         console.log(data)
+    //         setFilteredPostData(data)
+    //     }).catch((error) =>{
+    //         console.log(error)
+    //     })
+    // }, [sortByCat])
+
+
 
     const changeSorting = (event) => {
         setSorting({
@@ -39,7 +88,7 @@ const NewsFeeds = () => {
         // load all the post from server
         getAllPosts(0, page.pageSize, sorting.sortDir)
             .then((data) => {
-                console.log(data)
+                //console.log(data)
                 setPostData(data)
             }).catch((error) => {
                 console.log(error)
@@ -55,9 +104,9 @@ const NewsFeeds = () => {
         if (pageNumber < postData.pageNumber && postData.pageNumber == 0) {
             return
         }
-        getAllPosts(pageNumber, page.pageSize,sorting.sortDir)
+        getAllPosts(pageNumber, page.pageSize, sorting.sortDir)
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 setPostData(data)
                 window.scroll(0, 0)
             }).catch((error) => {
@@ -66,6 +115,34 @@ const NewsFeeds = () => {
             })
     }
 
+    
+
+    function refreshData(){
+        getAllPosts(0, page.pageSize, sorting.sortDir)
+        .then((data) => {
+            //console.log(data)
+            setPostData(data)
+        }).catch((error) => {
+            console.log(error)
+            // toast.error('something went wrong')
+        });
+    }
+
+    // function to delete post
+    function deletePost(post) {
+        // going to delete the post
+        deletePostByPostId(post.postId)
+            .then((resp) => {
+                console.log(resp)
+                toast.success('Post deleted successfully')
+                refreshData()
+            }).catch((error) => {
+                console.log(error)
+                toast.error('Error in deleting post')
+            })
+    }
+
+    
 
     return (
         <Base>
@@ -77,10 +154,10 @@ const NewsFeeds = () => {
 
                         <Card>
                             <CardHeader><b>Additional Filters</b></CardHeader>
-                            <CardBody className='bg-light'>
+                            <CardBody className='bg-light mt-3'>
                                 <FormGroup>
                                     <Label for="exampleSelect">
-                                        Sort by ascending/descending order
+                                        <b>Sort By Asc/Desc Order</b>
                                     </Label>
                                     <Input type='select' name='sortDir' onChange={(e) => changeSorting(e, 'sortDir')}>
                                         <option disabled selected>--Sorting Order--</option>
@@ -95,7 +172,7 @@ const NewsFeeds = () => {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="exampleSelect">
-                                        Change Page Size
+                                        <b>Change Page Size</b>
                                     </Label>
                                     <Input type='select' name='pageSize' onChange={(e) => changePageSize(e, 'pageSize')}>
                                         <option disabled selected>--Choose Page Size--</option>
@@ -106,7 +183,32 @@ const NewsFeeds = () => {
                                         <option value='20' disabled={postData.totalElements < 20}>20</option>
                                     </Input>
                                 </FormGroup>
+                                {/* <FormGroup>
+                                    <Label for="exampleSelect">
+                                        <b>Filter post by category</b>
+                                    </Label>
+                                    <Input
+                                        type='select'
+                                        name='catId'
+                                        // onChange={(e) => handleChange(e, 'catId')}
 
+                                    >
+                                        <option disabled selected>--Select Post Category--</option>
+                                        {
+
+                                            categories.map((category) => (
+
+
+                                                <option value={category.catId} key={category.catId}>
+
+                                                    {category.catTitle}
+                                                </option>
+
+                                            ))
+                                        }
+
+                                    </Input>
+                                </FormGroup> */}
                             </CardBody>
 
                         </Card>
@@ -129,10 +231,11 @@ const NewsFeeds = () => {
                             </h5>
                         </Card>
                         {
-                            postData.content.map((post) => (
-                                <Post post={post} key={post.postId} />
+                            postData?.content?.map((post) => (
+                                <Post deletePost={deletePost} post={post} key={post.postId} />
                             ))
                         }
+
 
 
                     </Col>

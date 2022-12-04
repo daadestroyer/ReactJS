@@ -13,4 +13,6 @@ export const getUserByUserId = (userId) => {
     return myAxios.get(`/user/get-single-user/${userId}`,userId).then((response) => response.data);
 }
 
- 
+export const getAllUsers =  ()=>{
+    return myAxios.get(`/user/get-all-user`).then((response) => response.data)
+}

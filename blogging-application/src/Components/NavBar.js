@@ -90,7 +90,7 @@ const NavBar = () => {
                                         </DropdownToggle>
                                         <DropdownMenu right>
                                             <DropdownItem tag={ReactLink} to="/user/addpost">   Post something ?</DropdownItem>
-                                            <DropdownItem>   Edit Post ?</DropdownItem>
+                                            <DropdownItem tag={ReactLink} to="/user/mypost">   My Post </DropdownItem>
                                         </DropdownMenu>
                                     </UncontrolledDropdown>
 
@@ -105,6 +105,11 @@ const NavBar = () => {
                                                         <DropdownItem tag={ReactLink} to="/user/addcat">Add Category</DropdownItem>
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>
+
+                                                <NavItem>
+                                                    <NavLink tag={ReactLink} to="/user/viewallusers">View All Users</NavLink>
+                                                </NavItem>
+
                                             </>
                                         )
                                     }

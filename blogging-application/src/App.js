@@ -18,6 +18,8 @@ import NewsFeeds from './Pages/NewsFeeds'
 import AddCategory from './Pages/Private Pages/AddCategory'
 import PostInfo from './Pages/PostInfo'
 import PublicUserProfile from './Pages/PublicUserProfile'
+import MyPost from './Pages/Private Pages/MyPost'
+import ViewAllUsers from './Pages/Private Pages/ViewAllUsers'
 
 
 const App = () => {
@@ -50,7 +52,9 @@ const App = () => {
                     <Route path="dashboard" element={<UserDashboard />} />
                     <Route path="profile" element={<UserProfile/>} />
                     <Route path="addpost" element={<AddPost/>} />
+                    <Route path="mypost" element={<MyPost/>} />
                     <Route path="addcat" element={<AddCategory/>} />
+                    <Route path="viewallusers" element={<ViewAllUsers/>} />
                 </Route>
 
 

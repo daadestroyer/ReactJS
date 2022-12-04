@@ -16,3 +16,19 @@ export const getAllPosts = (pageNumber,pageSize,sortDir)=>{
 export const getPostById = (postId)=>{
     return myAxios.get(`/post/get-post/${postId}`).then((response)=>response.data)
 }
+
+// // get post by category
+// export const getPostByCategory = (catId)=>{
+//     console.log(catId)
+//     return myAxios.get(`/post/category/${catId}/posts`,catId).then((response)=>response.data)
+// }
+
+// get post by usr id
+export const getAllPostByUserId = (userId)=>{
+    return myAxios.get(`/post/user/${userId}/posts`,userId).then((response)=>response.data)
+}
+
+// delete post by post id
+export const deletePostByPostId = (postId)=>{
+    return privateAxios.delete(`/post/delete-post/${postId}`,postId).then((response)=>response.data)
+}

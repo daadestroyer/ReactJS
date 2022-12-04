@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CardBody, CardHeader, Col, Container, Row, Table } from 'reactstrap'
 import Base from '../../Components/Base'
-import { getAllUsers } from '../../Services/UserService'
+import { deleteUserByUserId, getAllUsers } from '../../Services/UserService'
+import { BsFillTrashFill } from 'react-icons/bs';
 
 const ViewAllUsers = () => {
 
@@ -26,6 +27,30 @@ const ViewAllUsers = () => {
     useEffect(() => {
         console.log(allUsers)
     }, [allUsers])
+
+    function loadAllUserRefresh(){
+        getAllUsers()
+            .then((resp) => {
+                // console.log(resp)
+                // setting up the categories
+                setAllUsers(resp)
+            }).catch(error => {
+                console.log("error")
+                toast.error("something went wrong !")
+            });
+    }
+
+    const deleteUser = (user) => {
+        deleteUserByUserId(user.userId)
+            .then((resp) => {
+                console.log(resp)
+                toast.success('user deleted successfully')
+                loadAllUserRefresh()
+            }).catch((err) => {
+                console.log(err)
+            })
+    }
+
     return (
         <Base>
             <Container className='mt-3'>
@@ -56,6 +81,9 @@ const ViewAllUsers = () => {
                                         <th>
                                             Role
                                         </th>
+                                        <th>
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,7 +95,7 @@ const ViewAllUsers = () => {
                                                     {user.userId}
                                                 </th>
                                                 <td>
-                                                <Link to={'/publicprofile/' + user.userId}>{user.user_name}</Link>
+                                                    <Link to={'/publicprofile/' + user.userId}>{user.user_name}</Link>
                                                 </td>
                                                 <td>
                                                     {user.userEmail}
@@ -75,11 +103,32 @@ const ViewAllUsers = () => {
                                                 <td>
                                                     {user.about}
                                                 </td>
-                                                <td>
+                                                {/* <td style={{ backgroundColor: user.roles.map((role) => role.role === 'ROLE_ADMIN') ? 'red' : 'yellow' }}>
                                                     {
                                                         user.roles.map((role) => role.role)
                                                     }
-                                                </td>
+                                                </td> */}
+
+                                                {
+                                                    user.roles?.map((role) => role.role) == 'ROLE_ADMIN' && (
+                                                        <td style={{ backgroundColor: 'green' }}>
+                                                            {
+                                                                user.roles.map((role) => role.role)
+                                                            }
+                                                        </td>
+                                                    )
+                                                }
+
+                                                {
+                                                    user.roles?.map((role) => role.role) != 'ROLE_ADMIN' && (
+                                                        <td style={{ backgroundColor: 'yellow' }}>
+                                                            {
+                                                                user.roles.map((role) => role.role)
+                                                            }
+                                                        </td>
+                                                    )
+                                                }
+                                                <td style={{ color: 'red' }} ><BsFillTrashFill onClick={() => deleteUser(user)} /></td>
                                             </tr>
                                         ))
                                     }

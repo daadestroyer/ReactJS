@@ -27,7 +27,7 @@ const Post = ({ post = { title: "this is default post title", content: "this is 
                     Post Category : {post.category.catTitle}
                 </Badge>{" "}
                 <Badge color="light" pill>
-                    <Link to={'/publicprofile/' + post.user.userId}>Posted By :{post.user.user_name} on {post.addedDate[2]}/{post.addedDate[1]}/{post.addedDate[0]}</Link>
+                    <Link to={'/publicprofile/' + post.user.userId}>Posted By : {post.user.user_name} on {post.addedDate[2]}/{post.addedDate[1]}/{post.addedDate[0]}</Link>
                 </Badge>{" "}
 
 

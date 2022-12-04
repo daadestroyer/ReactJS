@@ -28,7 +28,7 @@ const ViewAllUsers = () => {
         console.log(allUsers)
     }, [allUsers])
 
-    function loadAllUserRefresh(){
+    function loadAllUserRefresh() {
         getAllUsers()
             .then((resp) => {
                 // console.log(resp)
@@ -63,6 +63,7 @@ const ViewAllUsers = () => {
                                 hover
                                 responsive
                                 striped
+                                className='text-center' 
                             >
                                 <thead>
                                     <tr>
@@ -82,7 +83,7 @@ const ViewAllUsers = () => {
                                             Role
                                         </th>
                                         <th>
-                                            Action
+                                            Delete
                                         </th>
                                     </tr>
                                 </thead>

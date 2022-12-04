@@ -12,7 +12,7 @@ const Signup = () => {
 
 
   const [signUpData, setSignupData] = useState({
-    userName: '',
+    user_name: '',
     userEmail: '',
     password: '',
     about: ''
@@ -39,11 +39,11 @@ const Signup = () => {
 
   // calling setSignupData for reseting form data 
   const resetData = () => {
-    if (signUpData.userName == '' && signUpData.password == '' && signUpData.password == '' && signUpData.about == '') {
+    if (signUpData.user_name == '' && signUpData.password == '' && signUpData.password == '' && signUpData.about == '') {
       toast.info("fields are already reset!");
     }
     setSignupData({
-      userName: '',
+      user_name: '',
       userEmail: '',
       password: '',
       about: ''
@@ -64,9 +64,9 @@ const Signup = () => {
       .then((resp) => {
         console.log(resp);
         console.log("success log");
-        toast.success(signUpData.userName + ' registered successfully...');
+        toast.success(signUpData.user_name + ' registered successfully...');
         setSignupData({
-          userName: '',
+          user_name: '',
           userEmail: '',
           password: '',
           about: ''
@@ -98,14 +98,14 @@ const Signup = () => {
                     <FormGroup>
                       <Input
                         type='text'
-                        name='userName'
+                        name='user_name'
                         placeholder='Enter your name'
-                        onChange={(e) => handleChange(e, 'userName')}
-                        value={signUpData.userName}
-                        invalid={error.errors?.response?.data?.userName ? true : false}
+                        onChange={(e) => handleChange(e, 'user_name')}
+                        value={signUpData.user_name}
+                        invalid={error.errors?.response?.data?.user_name ? true : false}
                       />
                       <FormFeedback>
-                        {error.errors?.response?.data?.userName}
+                        {error.errors?.response?.data?.user_name}
                       </FormFeedback>
                     </FormGroup>
 
